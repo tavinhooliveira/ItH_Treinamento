@@ -1,6 +1,8 @@
 package br.com.ithappens.service;
 
+import br.com.ithappens.mapper.FilialMapper;
 import br.com.ithappens.mapper.PedidoMapper;
+import br.com.ithappens.model.Filial;
 import br.com.ithappens.model.PedidoEstoque;
 import br.com.ithappens.utils.exception.JaExisteException;
 import br.com.ithappens.utils.exception.NotFoundException;
@@ -17,6 +19,12 @@ public class PedidoService {
   @Autowired
   private PedidoMapper pedidoMapper;
 
+  @Autowired
+  private FilialService filialService;
+
+  @Autowired
+  private FilialMapper filialMapper;
+
   public List<PedidoEstoque> listar() {
     return pedidoMapper.listarTodosPedidosEstoque();
   }
@@ -24,6 +32,13 @@ public class PedidoService {
   public boolean salvar(PedidoEstoque pedidoEstoque) {
     log.info("Salvando Pedido...");
     if (pedidoEstoque.getId() != null){
+      if(pedidoEstoque.getFilial() == null){
+        log.error("[ERROR] - Filião não localizada não localizado!");
+        throw new NotFoundException("A filial é obrigatória para esse operação!");
+      }
+      Filial f = filialService.buscarFilialPorId(pedidoEstoque.getFilial().getId());
+      pedidoEstoque.setFilial(f);
+      pedidoEstoque.setPedidoAtivo(true);
       PedidoEstoque p = pedidoMapper.buscarPedidosEstoquePorId(pedidoEstoque.getId());
       if(p != null){
         log.error("[ERROR] - Pedido não localizado!");
@@ -41,5 +56,17 @@ public class PedidoService {
           throw new NotFoundException("O pedido não foi localizado!");
         }
     return pedidoEstoque;
+  }
+
+  public boolean calcelarPedido(Long id) {
+    PedidoEstoque pedidoEstoque = buscarPedidoId(id);
+    pedidoEstoque.setId(pedidoEstoque.getId());
+    pedidoEstoque.setTipoReceita(pedidoEstoque.getTipoReceita());
+    pedidoEstoque.setQuantidadePedidoTotal(pedidoEstoque.getQuantidadePedidoTotal());
+    pedidoEstoque.setValorPedidoTotal(pedidoEstoque.getValorPedidoTotal());
+    pedidoEstoque.setFilial(pedidoEstoque.getFilial());
+    pedidoEstoque.setItemPedidoEstoque(pedidoEstoque.getItemPedidoEstoque());
+    pedidoEstoque.setPedidoAtivo(false);
+    return pedidoMapper.cancelarPedidoMapper(pedidoEstoque);
   }
 }

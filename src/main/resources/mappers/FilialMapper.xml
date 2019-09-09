@@ -1,25 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="br.com.ithappens.mapper.FilialMapper">
+
+
     <!--Buscar todas as filiais: <list> -->
-    <select id="listarTodasFilias" resultType="br.com.ithappens.model.Filial">
+    <select id="listarTodasFilias" resultMap="ResultFilial">
        SELECT * from filial
     </select>
+    <resultMap id="ResultFilial" type="br.com.ithappens.model.Filial">
+        <id property="id" column="filial_id"/>
+        <result property="id" column="id"/>
+        <result property="nome" column="nome"/>
+        <result property="cnpj" column="cnpj"/>
+    </resultMap>
 
     <!--Buscar filial por id: <list> -->
     <select id="buscarFilialPorId" parameterType="br.com.ithappens.model.Filial" resultType="br.com.ithappens.model.Filial">
         SELECT * from filial WHERE filial.id = #{id}
     </select>
 
+
     <!--Salvar Filiais: <list> -->
     <insert id="salvarFilial" parameterType="br.com.ithappens.model.Filial">
-    INSERT INTO filial (id, nome, cnpj) VALUES(#{filial.id}, #{filial.nome}, #{filial.cnpj})
+        INSERT INTO filial (id, nome, cnpj) VALUES(#{filial.id}, #{filial.nome}, #{filial.cnpj})
     </insert>
+
 
     <!--Deletar Filiais -->
     <delete id="deleteFilial" parameterType="br.com.ithappens.model.Filial">
         DELETE FROM filial WHERE filial.id = #{id}
     </delete>
+
 
     <!--Atualizar Filiais -->
     <update id="atualizar" parameterType="br.com.ithappens.model.Filial">
@@ -27,4 +38,5 @@
         SET nome= #{filial.nome}, cnpj= #{filial.cnpj}
         WHERE id = #{filial.id};
     </update>
+
 </mapper>

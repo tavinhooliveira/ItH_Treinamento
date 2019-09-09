@@ -2,18 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="br.com.ithappens.mapper.PedidoMapper">
-    <!-- Buscar todas as filiais: <list> -->
-    <select id="listarTodosPedidosEstoque" resultType="br.com.ithappens.model.PedidoEstoque">
-        SELECT id, filial from pedidoEstoque
-    </select>
 
+    <!-- Buscar todas as filiais: <list> -->
+    <select id="listarTodosPedidosEstoque" resultMap="pedidoEstoqueMap">
+        SELECT pedidoestoque.id as pedido_id, tipoReceita, quantidadePedidoTotal, valorPedidoTotal, pedidoAtivo, filial.id as filial_id, filial.nome, filial.cnpj
+        from pedidoEstoque
+        inner join filial
+        on pedidoestoque.filial = filial.id
+    </select>
+    <resultMap id="pedidoEstoqueMap" type="br.com.ithappens.model.PedidoEstoque">
+        <result column="pedido_id" property="id"/>
+        <result column="tipoReceita" property="tipoReceita"/>
+        <result column="quantidadePedidoTotal" property="quantidadePedidoTotal"/>
+        <result column="valorPedidoTotal" property="valorPedidoTotal"/>
+        <result column="pedidoAtivo" property="pedidoAtivo"/>
+        <association property="filial" resultMap="br.com.ithappens.mapper.FilialMapper.ResultFilial"/>
+    </resultMap>
+
+    <!--Buscar por ID -->
     <select id="buscarPedidosEstoquePorId" parameterType="br.com.ithappens.model.PedidoEstoque" resultType="br.com.ithappens.model.PedidoEstoque">
         SELECT * from pedidoEstoque WHERE pedidoEstoque.id = #{id}
     </select>
 
+    <!--Salvar Pedido -->
     <insert id="salvarPedido" parameterType="br.com.ithappens.model.PedidoEstoque">
-    INSERT INTO pedidoEstoque (id, tipoReceita, quantidadePedidoTotal, valorPedidoTotal, filial, itemPedidoEstoque)
-        VALUES(#{pedidoEstoque.id}, #{pedidoEstoque.tipoReceita}, #{pedidoEstoque.quantidadePedidoTotal}, #{pedidoEstoque.valorPedidoTotal}, #{pedidoEstoque.filial.id}, #{pedidoEstoque.itemPedidoEstoque.id})
+        INSERT INTO pedidoEstoque (id, tipoReceita, quantidadePedidoTotal, valorPedidoTotal, pedidoAtivo, filial, itemPedidoEstoque)
+            VALUES(#{pedidoEstoque.id}, #{pedidoEstoque.tipoReceita}, #{pedidoEstoque.quantidadePedidoTotal}, #{pedidoEstoque.valorPedidoTotal}, #{pedidoEstoque.pedidoAtivo}, #{pedidoEstoque.filial.id}, #{pedidoEstoque.itemPedidoEstoque.id})
     </insert>
+
+    <!-- Cancelar pedido -->
+    <update id="cancelarPedidoMapper" parameterType="br.com.ithappens.model.PedidoEstoque">
+        UPDATE PedidoMapper
+        SET pedidoEstoque.id = #{pedidoEstoque.id}, pedidoEstoque.tipoReceita = #{pedidoEstoque.tipoReceita}, pedidoEstoque.quantidadePedidoTotal = #{pedidoEstoque.quantidadePedidoTotal}, pedidoEstoque.valorPedidoTotal = #{pedidoEstoque.valorPedidoTotal}, pedidoEstoque.pedidoAtivo = #{pedidoEstoque.pedidoAtivo}, pedidoEstoque.filial = #{pedidoEstoque.filial.id}, pedidoEstoque.itemPedidoEstoque = #{pedidoEstoque.itemPedidoEstoque.id}
+        WHERE pedidoEstoque.id = #{pedidoEstoque.id};
+    </update>
 
 </mapper>

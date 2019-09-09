@@ -21,16 +21,6 @@ public class PedidoController {
   @Autowired
   private PedidoService pedidoService;
 
-  @Autowired
-  private FilialService filialService;
-
-  @Autowired
-  private FilialMapper filialMapper;
-
-  public List<Filial> listar() {
-    return filialMapper.listarTodasFilias();
-  }
-
   /*Buscar todos*/
   @GetMapping
   public ResponseEntity<List<PedidoEstoque>> listarPedidos() {
@@ -40,25 +30,33 @@ public class PedidoController {
     return ResponseEntity.status(HttpStatus.OK).body(pedidos);
   }
 
-  /*Salvar*/
-  @PostMapping
-  public ResponseEntity<Void> salvar(@RequestBody PedidoEstoque pedidoEstoque) {
-    log.info("\n\nPOST\n\n");
-    Filial f = filialService.buscarFilialPorId(pedidoEstoque.getFilial().getId());
-    pedidoEstoque.setFilial(f);
-    pedidoService.salvar(pedidoEstoque);
-    log.debug("Pedido salvo com sucesso!");
-    return ResponseEntity.status(HttpStatus.CREATED).build();
-  }
-
   /*Buscar Por ID*/
-  @GetMapping(value = "/id")
+  @GetMapping(value = "/{id}")
   public ResponseEntity<PedidoEstoque> buscarId(@PathVariable("id") Long id) {
     log.info("\n\nGET\n\n - Recuperando um pedido por ID: " + id);
     PedidoEstoque pedidoEstoque = pedidoService.buscarPedidoId(id);
     log.debug("Pedido salvo com sucesso!");
     return ResponseEntity.status(HttpStatus.OK).body(pedidoEstoque);
   }
+
+  /*Salvar*/
+  @PostMapping
+  public ResponseEntity<Void> salvar(@RequestBody PedidoEstoque pedidoEstoque) {
+    log.info("\n\nPOST\n\n - Salvando pedido...");
+    pedidoService.salvar(pedidoEstoque);
+    log.debug("Pedido salvo com sucesso!");
+    return ResponseEntity.status(HttpStatus.CREATED).build();
+  }
+
+  /*Salvar*/
+  @PutMapping(value = "/{id}/cancelar")
+  public ResponseEntity<Void> salvar(@PathVariable("id") Long id) {
+    log.info("\n\nPOST\n\n - Cancelando pedido");
+    pedidoService.calcelarPedido(id);
+    log.debug("Pedido cancelado com sucesso!");
+    return ResponseEntity.status(HttpStatus.OK).build();
+  }
+
 
 
 }
