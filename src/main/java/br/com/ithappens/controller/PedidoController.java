@@ -1,6 +1,9 @@
 package br.com.ithappens.controller;
 
+import br.com.ithappens.mapper.FilialMapper;
+import br.com.ithappens.model.Filial;
 import br.com.ithappens.model.PedidoEstoque;
+import br.com.ithappens.service.FilialService;
 import br.com.ithappens.service.PedidoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +21,16 @@ public class PedidoController {
   @Autowired
   private PedidoService pedidoService;
 
+  @Autowired
+  private FilialService filialService;
+
+  @Autowired
+  private FilialMapper filialMapper;
+
+  public List<Filial> listar() {
+    return filialMapper.listarTodasFilias();
+  }
+
   /*Buscar todos*/
   @GetMapping
   public ResponseEntity<List<PedidoEstoque>> listarPedidos() {
@@ -31,6 +44,8 @@ public class PedidoController {
   @PostMapping
   public ResponseEntity<Void> salvar(@RequestBody PedidoEstoque pedidoEstoque) {
     log.info("\n\nPOST\n\n");
+    Filial f = filialService.buscarFilialPorId(pedidoEstoque.getFilial().getId());
+    pedidoEstoque.setFilial(f);
     pedidoService.salvar(pedidoEstoque);
     log.debug("Pedido salvo com sucesso!");
     return ResponseEntity.status(HttpStatus.CREATED).build();

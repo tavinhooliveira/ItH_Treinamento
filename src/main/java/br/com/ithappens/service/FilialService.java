@@ -22,10 +22,12 @@ public class FilialService {
   }
 
   public Filial buscarFilialPorId(Long id) {
+    log.info("Pesquisando Filial por id...");
     Filial filial = filialMapper.buscarFilialPorId(id);
     if (filial == null) {
       throw new NotFoundException("A filial pesquisada não foi encontrada");
     }
+    log.debug("Filial retornada.."+ filial.getNome());
     return filial;
   }
 
