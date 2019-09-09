@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="br.com.ithappens.mapper.ProdutoMapper">
+
+    <!-- Buscar todas as filiais: <list> -->
+    <select id="listarTodosProdutos" resultType="br.com.ithappens.model.Produto">
+        SELECT * from produto
+    </select>
+
+    <!-- Buscar filial por id: <list> -->
+    <select id="buscarProdutoPorId" parameterType="br.com.ithappens.model.Produto" resultType="br.com.ithappens.model.Produto">
+        SELECT * from produto WHERE produto.id = #{id}
+    </select>
+
+    <!-- Buscar todas as filiais: <list> -->
+    <insert id="salvarProduto" parameterType="br.com.ithappens.model.Produto">
+    INSERT INTO produto (id, descricao, valorProduto, status) VALUES(#{produto.id}, #{produto.descricao}, #{produto.valorProduto}, #{produto.status})
+    </insert>
+
+    <!-- -->
+    <delete id="deleteProduto" parameterType="br.com.ithappens.model.Produto">
+        DELETE FROM produto WHERE produto.id = #{id}
+    </delete>
+
+    <update id="atualizarProduto" parameterType="br.com.ithappens.model.Produto">
+       UPDATE filial
+        SET descricao= #{produto.descricao}, valorProduto= #{produto.valorProduto}, status= #{produto.status}
+        WHERE id = #{produto.id};
+    </update>
+
+</mapper>
