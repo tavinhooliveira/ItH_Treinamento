@@ -14,4 +14,9 @@ public class UtilsService {
     return false;
   }
 
+  boolean verificarParamsID(Long id){
+    if(id == null){ return false;}
+    return true;
+  }
+
 }

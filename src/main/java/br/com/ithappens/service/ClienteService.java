@@ -23,14 +23,16 @@ public class ClienteService {
   @Autowired
   private UtilsService utilsService;
 
-  public List<Cliente> clienteService() {
-    return clienteMapper.listarTodosClientes();
-  }
-
   private static final String CLIENTE_SALVO_COM_SUCESSO = "Cliente salvo com sucesso!";
 
   private static final String CLIENTE_DELETADO_COM_SUCESSO = "Cliente deletado com sucesso!";
 
+  /*Buscar todos os clientes*/
+  public List<Cliente> clienteService() {
+    return clienteMapper.listarTodosClientes();
+  }
+
+  /*Buscar cliente por ID*/
   public Cliente buscarClienteID(Long id) {
     log.info("Pesquisando cliente por id: "+ id);
     Cliente cliente = clienteMapper.buscarClienteID(id);
@@ -42,9 +44,9 @@ public class ClienteService {
     return cliente;
   }
 
+  /*Salvar*/
   public boolean salvarCliente(Cliente cliente) {
-    verificarParamsID(cliente.getId());
-    if(!verificarParamsID(cliente.getId())){ throw new ParametroInvalidoException("Parametro invalido ou nulo no request");
+    if(!utilsService.verificarParamsID(cliente.getId())){ throw new ParametroInvalidoException("Parametro invalido ou nulo no request");
     }
     if(cliente.getId() != null){
       Cliente c = clienteMapper.buscarClienteID(cliente.getId());
@@ -57,6 +59,7 @@ public class ClienteService {
     return clienteMapper.salvarClienteMapper(cliente);
   }
 
+  /*Atualizar*/
   public boolean atualizarCliente(Long id, Cliente cliente) {
     log.debug(CLIENTE_SALVO_COM_SUCESSO + cliente.getNome());
     Cliente c = buscarClienteID(id);
@@ -66,6 +69,7 @@ public class ClienteService {
     return clienteMapper.atualizarCliente(cliente);
   }
 
+  /*Deletar(Desativar o status do cliente)*/
   public boolean deletarCliente(Long id) {
     Cliente cliente = buscarClienteID(id);
     if(!utilsService.isAtivo(cliente.getStatus().getDescricao())){
@@ -79,6 +83,7 @@ public class ClienteService {
     return clienteMapper.atualizarCliente(cliente);
   }
 
+  /*Reativar o satus do cliente*/
   public boolean reativarCliente(Long id) {
     Cliente cliente = buscarClienteID(id);
     if(utilsService.isAtivo(cliente.getStatus().getDescricao())){
@@ -90,11 +95,6 @@ public class ClienteService {
     cliente.setStatus(Status.ATIVO);
     log.debug(CLIENTE_SALVO_COM_SUCESSO + cliente.getNome());
     return clienteMapper.atualizarCliente(cliente);
-  }
-
-  boolean verificarParamsID(Long id){
-    if(id == null){ return false;}
-      return true;
   }
 
 }

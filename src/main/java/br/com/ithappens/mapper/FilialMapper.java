@@ -17,7 +17,5 @@ public interface FilialMapper {
 
   boolean salvarFilial(@Param("filial") Filial filial);
 
-  boolean deleteFilial(@Param("id") Long id);
-
   void atualizar(@Param("filial") Filial filial);
 }

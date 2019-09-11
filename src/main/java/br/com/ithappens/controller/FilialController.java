@@ -2,6 +2,7 @@ package br.com.ithappens.controller;
 
 import br.com.ithappens.model.Filial;
 import br.com.ithappens.service.FilialService;
+import br.com.ithappens.service.UtilsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,6 +51,14 @@ public class FilialController {
   public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
     filialService.deleteFilial(id);
     log.debug("DELETE - Filia deletada com sucesso!");
+    return ResponseEntity.noContent().build();
+  }
+
+  /* Deletar filial por ID */
+  @PutMapping(value = "/{id}/reativar")
+  public ResponseEntity<Void> reativar(@PathVariable("id") Long id) {
+    filialService.reativarFilial(id);
+    log.debug("REATIVAR - Filia ativada com sucesso!");
     return ResponseEntity.noContent().build();
   }
 

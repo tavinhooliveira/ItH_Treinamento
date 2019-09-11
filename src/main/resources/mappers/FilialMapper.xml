@@ -24,15 +24,10 @@
         INSERT INTO filial (id, nome, cnpj, status) VALUES(#{filial.id}, #{filial.nome}, #{filial.cnpj}, #{filial.status})
     </insert>
 
-    <!--Deletar Filiais -->
-    <delete id="deleteFilial" parameterType="br.com.ithappens.model.Filial">
-        DELETE FROM filial WHERE filial.id = #{id}
-    </delete>
-
     <!--Atualizar Filiais -->
     <update id="atualizar" parameterType="br.com.ithappens.model.Filial">
        UPDATE filial
-        SET nome= #{filial.nome}, cnpj= #{filial.cnpj}
+        SET nome= #{filial.nome}, cnpj= #{filial.cnpj}, status= #{filial.status}
         WHERE id = #{filial.id};
     </update>
 
