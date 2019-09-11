@@ -9,7 +9,7 @@ public class ItemPedidoEstoque {
     private Integer valorDoPedido;
 
     //Relacionamento para a tabela de produtos
-    private Produto produto_id;
+    private Produto produto;
     private PedidoEstoque pedidoEstoque;
 
     private Status status;

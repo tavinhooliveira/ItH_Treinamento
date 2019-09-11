@@ -2,8 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="br.com.ithappens.mapper.ItemMapper">
 
-    <!-- Buscar todas as filiais: <list> -->
-    <select id="listarTodosItemsDoPedidos" resultType="br.com.ithappens.model.ItemPedidoEstoque">
-        SELECT * from itemPedidoEstoque
+    <!--Buscar todas as filiais: <list> -->
+    <select id="listarTodosItemsDoPedidos" resultMap="ResultPedidos">
+       SELECT * from itempedidoestoque
+    </select>
+    <resultMap id="ResultPedidos" type="br.com.ithappens.model.ItemPedidoEstoque">
+        <id property="id" column="filial_id"/>
+        <result property="id" column="id"/>
+        <result property="nome" column="nome"/>
+        <result property="cnpj" column="cnpj"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+
+
+
+
+
+
+
+
+    <insert id="salvaritemDoPedido">
+
+    </insert>
+
+    <!--Buscar por ID -->
+    <select id="buscarItemPorId" parameterType="br.com.ithappens.model.ItemPedidoEstoque" resultType="br.com.ithappens.model.ItemPedidoEstoque">
+        SELECT * from itemPedidoEstoque WHERE itemPedidoEstoque.id = #{id}
     </select>
 </mapper>

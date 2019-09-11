@@ -10,7 +10,5 @@ public class Produto {
   private String descricao;
   private Integer valorProduto;
 
-  private String status;
-  private List<ItemPedidoEstoque> itemPedidoEstoque;
-
+  private Status status;
 }

@@ -16,17 +16,32 @@ import java.util.List;
 public class ItemPedidoController {
 
   @Autowired
-  private ItemPedidoService itemPedido;
+  private ItemPedidoService itemPedidoService;
 
   @GetMapping
   public ResponseEntity<List<ItemPedidoEstoque>> listarItensDoPedido(){
-    List<ItemPedidoEstoque> items = itemPedido.listar();
+    log.info("\n\nGET\n -buscando todos os items");
+    List<ItemPedidoEstoque> items = itemPedidoService.listar();
     return ResponseEntity.status(HttpStatus.OK).body(items);
   }
 
+  @GetMapping(value = "/{id}")
+  public ResponseEntity<ItemPedidoEstoque> buscarItemPorId(@PathVariable Long id){
+    log.info("\n\nGET\n -Localiando pedido por ID...");
+    ItemPedidoEstoque itemPedido = itemPedidoService.buscarItemPorId(id);
+    log.debug("Item do Pedido Localizado:"+ itemPedido.getId());
+    return ResponseEntity.status(HttpStatus.OK).body(itemPedido);
+  }
+
+  /** TO-DO **/
+  //Buscar Itens de um pedido
+
+
   @PostMapping
   public ResponseEntity<Void> SalvarItens(@RequestBody ItemPedidoEstoque itemPedidoEstoque){
-
+    log.info("\n\nGET\n - Adicionando Items ao pedido");
+    itemPedidoService.salvarItemsNoPedido(itemPedidoEstoque);
+    log.debug("Items adicionado ao pedido: "+itemPedidoEstoque.getPedidoEstoque().getId());
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 

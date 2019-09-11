@@ -1,6 +1,7 @@
 package br.com.ithappens.controller;
 
 import br.com.ithappens.model.Produto;
+import br.com.ithappens.model.Status;
 import br.com.ithappens.service.ProdutoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class ProdutoController {
 
   @GetMapping
   public ResponseEntity<List<Produto>> listarProdutos() {
-    log.info("\n\nGET\n\n - Buscando todos os produtos...");
+    log.info("\n\nGET\n - Buscando todos os produtos...");
     List<Produto> produtos = produtoService.listar();
     log.debug("GET - Lista de Produtos retornada com Sucesso! ");
     return ResponseEntity.status(HttpStatus.OK).body(produtos);
@@ -30,7 +31,7 @@ public class ProdutoController {
 
   @GetMapping(value = "/{id}")
   public ResponseEntity<Produto> buscarPorId(@PathVariable("id") Long id) {
-    log.info("\n\nGET\n\n - Recuperando um produto por id");
+    log.info("\n\nGET\n - Recuperando um produto por id");
     Produto produto = produtoService.buscarPodutoPorId(id);
     log.debug("GET - produto retornado, codigo: " + produto.getId());
     return ResponseEntity.status(HttpStatus.OK).body(produto);
@@ -38,7 +39,7 @@ public class ProdutoController {
 
   @PostMapping
   public ResponseEntity<Void> salvar(@RequestBody Produto produto) {
-    log.debug("\n\nPOST\n\n");
+    log.info("\n\nPOST\n - Salvando o produto: ID:"+produto.getId()+"Descição:"+produto.getDescricao());
     produtoService.salvarProduto(produto);
     log.debug("Produto salvo com sucesso!");
     return ResponseEntity.status(HttpStatus.CREATED).build();
@@ -49,7 +50,7 @@ public class ProdutoController {
     log.info("Salvando produtos em lote...");
     produto.forEach(p -> {
       produtoService.salvarProduto(p);
-      log.debug("Produto salvo: " + p.getId());
+      log.debug("Produto salvo: " + p.getId()+"-"+p.getDescricao());
     });
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
     return ResponseEntity.created(uri).build();
