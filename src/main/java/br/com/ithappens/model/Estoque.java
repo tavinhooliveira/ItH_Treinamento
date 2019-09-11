@@ -8,5 +8,7 @@ public class Estoque {
   private Integer produto_id;
   private Integer filial_id;
   private Integer quantidade;
+
+  private Status status;
 }
 

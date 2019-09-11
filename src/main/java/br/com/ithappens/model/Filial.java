@@ -10,4 +10,6 @@ public class Filial {
   private String nome;
   private String cnpj;
 
+  private Status status;
+
 }

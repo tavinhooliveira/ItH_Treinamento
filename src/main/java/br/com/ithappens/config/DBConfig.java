@@ -6,4 +6,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @MapperScan("br.com.ithappens.mapper")
 public class DBConfig {
+
+
+
 }

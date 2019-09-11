@@ -24,7 +24,7 @@ public class ProdutoController {
   public ResponseEntity<List<Produto>> listarProdutos() {
     log.info("\n\nGET\n\n - Buscando todos os produtos...");
     List<Produto> produtos = produtoService.listar();
-    log.info("GET - Lista de Produtos retornada com Sucesso! ");
+    log.debug("GET - Lista de Produtos retornada com Sucesso! ");
     return ResponseEntity.status(HttpStatus.OK).body(produtos);
   }
 
@@ -32,6 +32,7 @@ public class ProdutoController {
   public ResponseEntity<Produto> buscarPorId(@PathVariable("id") Long id) {
     log.info("\n\nGET\n\n - Recuperando um produto por id");
     Produto produto = produtoService.buscarPodutoPorId(id);
+    log.debug("GET - produto retornado, codigo: " + produto.getId());
     return ResponseEntity.status(HttpStatus.OK).body(produto);
   }
 
@@ -39,13 +40,16 @@ public class ProdutoController {
   public ResponseEntity<Void> salvar(@RequestBody Produto produto) {
     log.debug("\n\nPOST\n\n");
     produtoService.salvarProduto(produto);
+    log.debug("Produto salvo com sucesso!");
     return ResponseEntity.status(HttpStatus.CREATED).build();
   }
 
   @PostMapping(value = "/lote")
   public ResponseEntity<Void> SalvarEmLote(@RequestBody List<Produto> produto) {
+    log.info("Salvando produtos em lote...");
     produto.forEach(p -> {
       produtoService.salvarProduto(p);
+      log.debug("Produto salvo: " + p.getId());
     });
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
     return ResponseEntity.created(uri).build();
@@ -54,6 +58,7 @@ public class ProdutoController {
   @DeleteMapping(value = "/{id}")
   public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
     produtoService.deleteProduto(id);
+    log.debug("DELETE - Produto deletado com sucesso");
     return ResponseEntity.noContent().build();
   }
 
@@ -63,4 +68,5 @@ public class ProdutoController {
     produtoService.atualizarProduto(produto);
     return ResponseEntity.status(HttpStatus.OK).build();
   }
+
 }

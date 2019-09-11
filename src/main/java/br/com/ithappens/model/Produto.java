@@ -9,8 +9,8 @@ public class Produto {
   private Long id;
   private String descricao;
   private Integer valorProduto;
-  private String status;
 
+  private String status;
   private List<ItemPedidoEstoque> itemPedidoEstoque;
 
 }

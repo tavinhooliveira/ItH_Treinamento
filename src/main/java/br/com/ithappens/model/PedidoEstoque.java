@@ -10,8 +10,9 @@ public class PedidoEstoque {
   private String tipoReceita;
   private Integer quantidadePedidoTotal;
   private Integer valorPedidoTotal;
-  private Boolean pedidoAtivo;
 
+  private Cliente cliente;
   private Filial filial;
   private List<ItemPedidoEstoque> itemPedidoEstoque;
+  private Status status;
 }

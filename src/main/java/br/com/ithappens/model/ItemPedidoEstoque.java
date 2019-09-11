@@ -12,4 +12,6 @@ public class ItemPedidoEstoque {
     private Produto produto_id;
     private PedidoEstoque pedidoEstoque;
 
+    private Status status;
+
 }

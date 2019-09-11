@@ -2,6 +2,7 @@ package br.com.ithappens.service;
 
 import br.com.ithappens.mapper.FilialMapper;
 import br.com.ithappens.model.Filial;
+import br.com.ithappens.model.Status;
 import br.com.ithappens.utils.exception.JaExisteException;
 import br.com.ithappens.utils.exception.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -22,35 +23,39 @@ public class FilialService {
   }
 
   public Filial buscarFilialPorId(Long id) {
-    log.info("Pesquisando Filial por id...");
+    log.info("Pesquisando Filial por id: "+ id);
     Filial filial = filialMapper.buscarFilialPorId(id);
     if (filial == null) {
       throw new NotFoundException("A filial pesquisada não foi encontrada");
     }
-    log.debug("Filial retornada.."+ filial.getNome());
+    log.debug("Filial retornada: "+ filial.getNome());
     return filial;
   }
 
   public boolean salvar(Filial filial) {
-    log.info("Salvando filial...");
     if(filial.getId() != null){
       Filial f = filialMapper.buscarFilialPorId(filial.getId());
       if(f != null){
-        throw new JaExisteException("A filião : {"+f.getNome()+"} já existe no banco de dados");
+        throw new JaExisteException("A filial : {"+f.getNome()+"} já existe no banco de dados");
       }
    }
-    log.debug("Filial salva com sucesso!");
+    log.debug("Filial salva com sucesso!"+ filial.getNome());
+    filial.setStatus(Status.ATIVO);
     return filialMapper.salvarFilial(filial);
   }
 
   public boolean deleteFilial(Long id){
     Filial filial = buscarFilialPorId(id);
+    filial.setStatus(Status.INATIVO);
+    log.debug("Deletando a filial: "+ filial.getNome());
     return filialMapper.deleteFilial(filial.getId());
   }
 
   public void atualizarFilial(Filial filial) {
-    buscarFilialPorId(filial.getId());
-    filialMapper.atualizar(filial);
+    Filial f =  buscarFilialPorId(filial.getId());
+    f.setStatus(Status.ATIVO);
+    log.debug("Atualizando a filial: "+ f.getNome());
+    filialMapper.atualizar(f);
   }
 
 }
