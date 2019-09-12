@@ -1,11 +1,10 @@
 package br.com.ithappens.service;
 
-import br.com.ithappens.mapper.ClienteMapper;
 import br.com.ithappens.mapper.PedidoMapper;
 import br.com.ithappens.model.Cliente;
 import br.com.ithappens.model.Filial;
 import br.com.ithappens.model.PedidoEstoque;
-import br.com.ithappens.model.Status;
+import br.com.ithappens.mapper.typehandler.Status;
 import br.com.ithappens.utils.exception.JaExisteException;
 import br.com.ithappens.utils.exception.NotFoundException;
 import lombok.extern.slf4j.Slf4j;

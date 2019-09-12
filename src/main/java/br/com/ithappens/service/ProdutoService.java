@@ -2,7 +2,7 @@ package br.com.ithappens.service;
 
 import br.com.ithappens.mapper.ProdutoMapper;
 import br.com.ithappens.model.Produto;
-import br.com.ithappens.model.Status;
+import br.com.ithappens.mapper.typehandler.Status;
 import br.com.ithappens.utils.exception.JaExisteException;
 import br.com.ithappens.utils.exception.NotFoundException;
 import br.com.ithappens.utils.exception.ParametroInvalidoException;

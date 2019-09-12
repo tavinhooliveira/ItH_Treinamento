@@ -1,4 +1,4 @@
-package br.com.ithappens.model;
+package br.com.ithappens.mapper.typehandler;
 
 public enum Status {
 

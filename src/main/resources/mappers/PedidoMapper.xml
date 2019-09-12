@@ -5,7 +5,7 @@
 
     <!-- Buscar todas as filiais: <list> -->
     <select id="listarTodosPedidosEstoque" resultMap="pedidoEstoqueMap">
-        SELECT pedidoestoque.id as pedido_id, tipoReceita, quantidadePedidoTotal, valorPedidoTotal, status,
+        SELECT pedidoestoque.id as pedido_id, pedidoestoque.status as pedido_status, tipoReceita, quantidadePedidoTotal, valorPedidoTotal,
             filial.id as filial_id, filial.nome, filial.cnpj, filial.status,
             cliente.id as cliente_id, cliente.nome, cliente.documentoDeIdentificacao, cliente.status
         from pedidoEstoque
@@ -19,7 +19,7 @@
         <result column="tipoReceita" property="tipoReceita"/>
         <result column="quantidadePedidoTotal" property="quantidadePedidoTotal"/>
         <result column="valorPedidoTotal" property="valorPedidoTotal"/>
-        <result column="status" property="status"/>
+        <result column="pedido_status" property="status"/>
         <association property="filial" resultMap="br.com.ithappens.mapper.FilialMapper.ResultFilial"/>
         <association property="cliente" resultMap="br.com.ithappens.mapper.ClienteMapper.ResultCliente"/>
     </resultMap>

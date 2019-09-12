@@ -21,7 +21,8 @@
 
     <!--Salvar Filiais: <list> -->
     <insert id="salvarFilial" parameterType="br.com.ithappens.model.Filial">
-        INSERT INTO filial (id, nome, cnpj, status) VALUES(#{filial.id}, #{filial.nome}, #{filial.cnpj}, #{filial.status})
+        INSERT INTO filial (id, nome, cnpj, status)
+            VALUES(#{filial.id}, #{filial.nome}, #{filial.cnpj}, #{filial.status})
     </insert>
 
     <!--Atualizar Filiais -->

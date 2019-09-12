@@ -2,7 +2,7 @@ package br.com.ithappens.service;
 
 import br.com.ithappens.mapper.ItemMapper;
 import br.com.ithappens.model.ItemPedidoEstoque;
-import br.com.ithappens.model.Status;
+import br.com.ithappens.mapper.typehandler.Status;
 import br.com.ithappens.utils.exception.NotFoundException;
 import br.com.ithappens.utils.exception.ParametroInvalidoException;
 import lombok.extern.slf4j.Slf4j;

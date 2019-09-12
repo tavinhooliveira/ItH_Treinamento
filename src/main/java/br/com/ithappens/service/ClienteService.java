@@ -2,7 +2,7 @@ package br.com.ithappens.service;
 
 import br.com.ithappens.mapper.ClienteMapper;
 import br.com.ithappens.model.Cliente;
-import br.com.ithappens.model.Status;
+import br.com.ithappens.mapper.typehandler.Status;
 import br.com.ithappens.utils.exception.ErroGenericoException;
 import br.com.ithappens.utils.exception.JaExisteException;
 import br.com.ithappens.utils.exception.NotFoundException;

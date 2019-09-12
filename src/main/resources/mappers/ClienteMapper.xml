@@ -21,7 +21,8 @@
 
     <!--Salvar cliente: <list> -->
     <insert id="salvarClienteMapper" parameterType="br.com.ithappens.model.Cliente">
-        INSERT INTO cliente (id, nome, documentoDeIdentificacao, status) VALUES(#{cliente.id}, #{cliente.nome}, #{cliente.documentoDeIdentificacao}, #{cliente.status})
+        INSERT INTO cliente (id, nome, documentoDeIdentificacao, status)
+            VALUES(#{cliente.id}, #{cliente.nome}, #{cliente.documentoDeIdentificacao}, #{cliente.status})
     </insert>
 
     <!--Atualizar cliente -->

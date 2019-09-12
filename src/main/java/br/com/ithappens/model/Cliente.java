@@ -1,5 +1,6 @@
 package br.com.ithappens.model;
 
+import br.com.ithappens.mapper.typehandler.Status;
 import lombok.Data;
 
 @Data

@@ -1,7 +1,6 @@
 package br.com.ithappens.controller;
 
 import br.com.ithappens.model.Produto;
-import br.com.ithappens.model.Status;
 import br.com.ithappens.service.ProdutoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
