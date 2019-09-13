@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 public class Estoque {
   private Long id;
-  private Integer produto_id;
-  private Integer filial_id;
+  private Integer produto;
+  private Integer filial;
   private Integer quantidade;
 
   private Status status;

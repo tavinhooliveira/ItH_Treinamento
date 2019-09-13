@@ -29,8 +29,6 @@ a
 1src/main/java/br/com/ithappens/model/Estoque.java,c/3/c31c2ac6c42c0038eda01fb666c2d84c482a0326
 s
 Csrc/main/java/br/com/ithappens/controller/ItemPedidoController.java,9/6/969ba1ab02a5ee3b3c768b6ca10c482a55a5ba0e
-`
-0src/main/java/br/com/ithappens/model/Status.java,5/d/5db5d8840ba7cfd3fea234453f6131c95dd688ce
 p
 @src/main/java/br/com/ithappens/controller/ProdutoController.java,8/1/81852d16d32fc32678f574f8de4f08defa8d2abe
 j
@@ -59,3 +57,7 @@ m
 =src/main/java/br/com/ithappens/service/ItemPedidoService.java,a/2/a25bbe276d1f1681e84603dd7a2516a4272f7a2e
 e
 5src/main/java/br/com/ithappens/mapper/ItemMapper.java,5/a/5a425934c9a37f95129dda4a9aec472869384753
+m
+=src/main/java/br/com/ithappens/mapper/typehandler/Status.java,c/3/c38ecc386c038a5e0ff6e026539adb0b84e89bfa
+r
+Bsrc/main/java/br/com/ithappens/mapper/typehandler/TipoReceita.java,7/9/794c7a153fb5ba78b854e61989b4cfa3bd57045a

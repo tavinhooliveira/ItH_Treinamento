@@ -38,7 +38,7 @@ public class ItemPedidoController {
 
 
   @PostMapping
-  public ResponseEntity<Void> SalvarItens(@RequestBody ItemPedidoEstoque itemPedidoEstoque){
+  public ResponseEntity<Void> salvarItens(@RequestBody ItemPedidoEstoque itemPedidoEstoque){
     log.info("\n\nGET\n - Adicionando Items ao pedido");
     itemPedidoService.salvarItemsNoPedido(itemPedidoEstoque);
     log.debug("Items adicionado ao pedido: "+itemPedidoEstoque.getPedidoEstoque().getId());

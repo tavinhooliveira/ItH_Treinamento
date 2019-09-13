@@ -24,12 +24,12 @@ public class ItemPedidoService {
   }
 
   public ItemPedidoEstoque buscarItemPorId(Long id) {
-    ItemPedidoEstoque ItemPedido = itemMapper.buscarItemPorId(id);
-    if (ItemPedido == null) {
+    ItemPedidoEstoque itemPedido = itemMapper.buscarItemPorId(id);
+    if (itemPedido == null) {
       log.error("[ERROR] - Item do pedido não localizado!");
       throw new NotFoundException("Item do pedido não localizado!");
     }
-    return ItemPedido;
+    return itemPedido;
   }
 
   public void salvarItemsNoPedido(ItemPedidoEstoque itemPedidoEstoque) {

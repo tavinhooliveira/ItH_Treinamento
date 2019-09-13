@@ -1,5 +1,5 @@
 
-ssquid:UselessImportCheck"CRemove this unused import 'br.com.ithappens.service.FilialService'.(õÅ¼Êøÿÿÿÿ8¹Ô÷¸Ñ-
-qsquid:UselessImportCheck"ARemove this unused import 'br.com.ithappens.mapper.FilialMapper'.(‰Ê£ÿÿÿÿÿ8¹Ô÷¸Ñ-
-jsquid:UselessImportCheck":Remove this unused import 'br.com.ithappens.model.Filial'.(Ï„Äÿÿÿÿÿ8¹Ô÷¸Ñ-
 lsquid:S001005"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(åë‡8ßµïÒ-
+qsquid:UselessImportCheck"ARemove this unused import 'br.com.ithappens.mapper.FilialMapper'.(‰Ê£ÿÿÿÿÿ8¹Ô÷¸Ñ-
+ssquid:UselessImportCheck"CRemove this unused import 'br.com.ithappens.service.FilialService'.(õÅ¼Êøÿÿÿÿ8¹Ô÷¸Ñ-
+jsquid:UselessImportCheck":Remove this unused import 'br.com.ithappens.model.Filial'.(Ï„Äÿÿÿÿÿ8¹Ô÷¸Ñ-

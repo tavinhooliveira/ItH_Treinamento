@@ -45,7 +45,7 @@ public class ProdutoController {
   }
 
   @PostMapping(value = "/lote")
-  public ResponseEntity<Void> SalvarEmLote(@RequestBody List<Produto> produto) {
+  public ResponseEntity<Void> salvarEmLote(@RequestBody List<Produto> produto) {
     log.info("Salvando produtos em lote...");
     produto.forEach(p -> {
       produtoService.salvarProduto(p);
@@ -63,7 +63,7 @@ public class ProdutoController {
   }
 
   @PutMapping(value = "/{id}")
-  public ResponseEntity<Void> Atualizar(@PathVariable("id") Long id, @RequestBody Produto produto) {
+  public ResponseEntity<Void> atualizar(@PathVariable("id") Long id, @RequestBody Produto produto) {
     produto.setId(id);
     produtoService.atualizarProduto(produto);
     return ResponseEntity.status(HttpStatus.OK).build();

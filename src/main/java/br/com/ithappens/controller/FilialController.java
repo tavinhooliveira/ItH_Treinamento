@@ -2,7 +2,6 @@ package br.com.ithappens.controller;
 
 import br.com.ithappens.model.Filial;
 import br.com.ithappens.service.FilialService;
-import br.com.ithappens.service.UtilsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -64,7 +63,7 @@ public class FilialController {
 
   /*Filia atualizada com sucesso! */
   @PutMapping(value = "/{id}")
-  public ResponseEntity<Void> Atualizar(@PathVariable("id") Long id, @RequestBody Filial filial) {
+  public ResponseEntity<Void> atualizar(@PathVariable("id") Long id, @RequestBody Filial filial) {
     filial.setId(id);
     filialService.atualizarFilial(filial);
     return ResponseEntity.status(HttpStatus.OK).build();

@@ -9,21 +9,15 @@
     <resultMap id="ResultPedidos" type="br.com.ithappens.model.ItemPedidoEstoque">
         <id property="id" column="filial_id"/>
         <result property="id" column="id"/>
-        <result property="nome" column="nome"/>
-        <result property="cnpj" column="cnpj"/>
+        <result property="quantidadePedido" column="quantidadePedido"/>
+        <result property="valorDoPedido" column="valorDoPedido"/>
         <result property="status" column="status"/>
     </resultMap>
 
-
-
-
-
-
-
-
-
-    <insert id="salvaritemDoPedido">
-
+    <!--Salvar itens no Pedido -->
+    <insert id="salvaritemDoPedido" parameterType="br.com.ithappens.model.PedidoEstoque">
+        INSERT INTO pedidoEstoque (id, tipoReceita, quantidadePedidoTotal, valorPedidoTotal, status, filial, cliente, itemPedidoEstoque)
+            VALUES(#{pedidoEstoque.id}, #{pedidoEstoque.tipoReceita}, #{pedidoEstoque.quantidadePedidoTotal}, #{pedidoEstoque.valorPedidoTotal}, #{pedidoEstoque.status}, #{pedidoEstoque.filial.id}, #{pedidoEstoque.cliente.id}, #{pedidoEstoque.itemPedidoEstoque.id})
     </insert>
 
     <!--Buscar por ID -->

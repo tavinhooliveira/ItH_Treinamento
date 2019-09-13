@@ -1,9 +1,6 @@
 package br.com.ithappens.controller;
 
-import br.com.ithappens.mapper.FilialMapper;
-import br.com.ithappens.model.Filial;
 import br.com.ithappens.model.PedidoEstoque;
-import br.com.ithappens.service.FilialService;
 import br.com.ithappens.service.PedidoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +47,7 @@ public class PedidoController {
 
   /*Salvar*/
   @PutMapping(value = "/{id}/cancelar")
-  public ResponseEntity<Void> CancelarPedido(@PathVariable("id") Long id) {
+  public ResponseEntity<Void> cancelarPedido(@PathVariable("id") Long id) {
     log.info("\n\nPOST\n - Cancelando pedido");
     pedidoService.calcelarPedido(id);
     log.debug("Pedido cancelado com sucesso!");
