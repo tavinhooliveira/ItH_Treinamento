@@ -7,12 +7,18 @@
     <select id="listarTodosPedidosEstoque" resultMap="pedidoEstoqueMap">
         SELECT pedidoestoque.id as pedido_id, pedidoestoque.status as pedido_status, tipoReceita, quantidadePedidoTotal, valorPedidoTotal,
             filial.id as filial_id, filial.nome, filial.cnpj, filial.status,
-            cliente.id as cliente_id, cliente.nome, cliente.documentoDeIdentificacao, cliente.status
+            cliente.id as cliente_id, cliente.nome, cliente.documentoDeIdentificacao, cliente.status,
+            itempedidoestoque.id as item_id, itempedidoestoque.quantidadePedido, itempedidoestoque.valordopedido, itempedidoestoque.status as item_status,
+            produto.id as produto_id, produto.descricao, produto.valorproduto, produto.status
         from pedidoEstoque
         inner join filial
         on pedidoestoque.filial = filial.id
         inner join cliente
         on pedidoestoque.cliente = cliente.id
+        inner join itempedidoestoque
+        on pedidoestoque.id = itempedidoestoque.pedidoestoque
+        inner join produto
+        on itempedidoestoque.produto = produto.id
     </select>
     <resultMap id="pedidoEstoqueMap" type="br.com.ithappens.model.PedidoEstoque">
         <result column="pedido_id" property="id"/>
@@ -22,18 +28,25 @@
         <result column="pedido_status" property="status"/>
         <association property="filial" resultMap="br.com.ithappens.mapper.FilialMapper.ResultFilial"/>
         <association property="cliente" resultMap="br.com.ithappens.mapper.ClienteMapper.ResultCliente"/>
+        <association property="itemPedidoEstoque" resultMap="br.com.ithappens.mapper.ItemMapper.itemPedidoMap"/>
     </resultMap>
 
     <!--Buscar por ID -->
     <select id="buscarPedidosEstoquePorId" resultMap="pedidoEstoqueMap" parameterType="br.com.ithappens.model.PedidoEstoque" >
          SELECT pedidoestoque.id as pedido_id, pedidoestoque.status as pedido_status, tipoReceita, quantidadePedidoTotal, valorPedidoTotal,
             filial.id as filial_id, filial.nome, filial.cnpj, filial.status,
-            cliente.id as cliente_id, cliente.nome, cliente.documentoDeIdentificacao, cliente.status
+            cliente.id as cliente_id, cliente.nome, cliente.documentoDeIdentificacao, cliente.status,
+            itempedidoestoque.id as item_id, itempedidoestoque.quantidadePedido, itempedidoestoque.valordopedido, itempedidoestoque.status as item_status,
+            produto.id as produto_id, produto.descricao, produto.valorproduto, produto.status
         from pedidoEstoque
         inner join filial
         on pedidoestoque.filial = filial.id
         inner join cliente
         on pedidoestoque.cliente = cliente.id
+        inner join itempedidoestoque
+        on pedidoestoque.id = itempedidoestoque.pedidoestoque
+        inner join produto
+        on itempedidoestoque.produto = produto.id
         WHERE pedidoEstoque.id = #{id}
     </select>
 

@@ -28,4 +28,7 @@ public class PedidoEstoque {
 
   @JsonInclude(JsonInclude.Include.NON_NULL)
   private Filial filial;
+
+  @JsonInclude(JsonInclude.Include.NON_NULL)
+  private List<ItemPedidoEstoque> itemPedidoEstoque;
 }
