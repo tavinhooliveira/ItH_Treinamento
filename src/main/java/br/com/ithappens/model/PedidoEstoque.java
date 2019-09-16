@@ -5,6 +5,7 @@ import br.com.ithappens.mapper.typehandler.TipoReceita;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -15,7 +16,7 @@ public class PedidoEstoque {
   private Integer quantidadePedidoTotal;
 
   @JsonInclude(JsonInclude.Include.NON_NULL)
-  private Integer valorPedidoTotal;
+  private BigDecimal valorPedidoTotal;
 
   @JsonInclude(JsonInclude.Include.NON_NULL)
   private TipoReceita tipoReceita;

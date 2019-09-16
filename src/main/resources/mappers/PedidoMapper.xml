@@ -8,17 +8,15 @@
         SELECT pedidoestoque.id as pedido_id, pedidoestoque.status as pedido_status, tipoReceita, quantidadePedidoTotal, valorPedidoTotal,
             filial.id as filial_id, filial.nome, filial.cnpj, filial.status,
             cliente.id as cliente_id, cliente.nome, cliente.documentoDeIdentificacao, cliente.status,
-            itempedidoestoque.id as item_id, itempedidoestoque.quantidadePedido, itempedidoestoque.valordopedido, itempedidoestoque.status as item_status,
-            produto.id as produto_id, produto.descricao, produto.valorproduto, produto.status
+            itempedidoestoque.id, itempedidoestoque.valordopedido
         from pedidoEstoque
         inner join filial
         on pedidoestoque.filial = filial.id
         inner join cliente
         on pedidoestoque.cliente = cliente.id
-        inner join itempedidoestoque
-        on pedidoestoque.id = itempedidoestoque.pedidoestoque
-        inner join produto
-        on itempedidoestoque.produto = produto.id
+        left join itempedidoestoque
+        on pedidoestoque.itempedidoestoque  = itempedidoestoque.id
+
     </select>
     <resultMap id="pedidoEstoqueMap" type="br.com.ithappens.model.PedidoEstoque">
         <result column="pedido_id" property="id"/>
@@ -47,6 +45,12 @@
         on pedidoestoque.id = itempedidoestoque.pedidoestoque
         inner join produto
         on itempedidoestoque.produto = produto.id
+        WHERE pedidoEstoque.id = #{id}
+    </select>
+
+    <select id="buscarSimplesPedidosEstoquePorId" parameterType="br.com.ithappens.model.PedidoEstoque" resultType="br.com.ithappens.model.PedidoEstoque">
+        SELECT *
+        from pedidoEstoque
         WHERE pedidoEstoque.id = #{id}
     </select>
 

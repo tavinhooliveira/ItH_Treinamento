@@ -15,6 +15,8 @@ public interface PedidoMapper {
 
   PedidoEstoque buscarPedidosEstoquePorId(@Param("id") Long id);
 
+  PedidoEstoque buscarSimplesPedidosEstoquePorId(@Param("id") Long id);
+
   boolean salvarPedido(@Param("pedidoEstoque") PedidoEstoque pedidoEstoque);
 
   boolean cancelarPedidoMapper(@Param("pedidoEstoque") PedidoEstoque pedidoEstoque);

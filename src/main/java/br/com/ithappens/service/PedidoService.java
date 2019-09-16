@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Slf4j
@@ -42,9 +43,9 @@ public class PedidoService {
       pedidoEstoque.setFilial(f);
       pedidoEstoque.setCliente(c);
       pedidoEstoque.setStatus(Status.ATIVO);
-      PedidoEstoque p = pedidoMapper.buscarPedidosEstoquePorId(pedidoEstoque.getId());
+      PedidoEstoque p = pedidoMapper.buscarSimplesPedidosEstoquePorId(pedidoEstoque.getId());
       if(p != null){
-        log.error("[ERROR] - Pedido não localizado!");
+        log.error("[ERROR] - já existe no banco de dados!");
         throw new JaExisteException("O Pedido : {"+p.getId()+"} já existe no banco de dados");
       }
     }
@@ -58,6 +59,7 @@ public class PedidoService {
           log.error("[ERROR] - Pedido não localizado!");
           throw new NotFoundException("O pedido não foi localizado!");
         }
+        pedidoEstoque.setQuantidadePedidoTotal(pedidoEstoque.getItemPedidoEstoque().size());
     return pedidoEstoque;
   }
 
@@ -72,4 +74,5 @@ public class PedidoService {
     pedidoEstoque.setStatus(Status.INATIVO);
     return pedidoMapper.cancelarPedidoMapper(pedidoEstoque);
   }
+
 }
