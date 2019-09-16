@@ -9,8 +9,8 @@
     <resultMap id="ResultProduto" type="br.com.ithappens.model.Produto">
         <id property="id" column="produto_id"/>
         <result property="id" column="id"/>
-        <result property="tiporeceita" column="tiporeceita"/>
-        <result property="cnpj" column="cnpj"/>
+        <result property="descricao" column="descricao"/>
+        <result property="valorProduto" column="valorProduto"/>
         <result property="status" column="status"/>
     </resultMap>
 

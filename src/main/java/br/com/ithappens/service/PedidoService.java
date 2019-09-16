@@ -69,7 +69,6 @@ public class PedidoService {
     pedidoEstoque.setValorPedidoTotal(pedidoEstoque.getValorPedidoTotal());
     pedidoEstoque.setFilial(pedidoEstoque.getFilial());
     pedidoEstoque.setCliente(pedidoEstoque.getCliente());
-    pedidoEstoque.setItemPedidoEstoque(pedidoEstoque.getItemPedidoEstoque());
     pedidoEstoque.setStatus(Status.INATIVO);
     return pedidoMapper.cancelarPedidoMapper(pedidoEstoque);
   }

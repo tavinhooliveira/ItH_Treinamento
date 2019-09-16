@@ -61,3 +61,5 @@ m
 =src/main/java/br/com/ithappens/mapper/typehandler/Status.java,c/3/c38ecc386c038a5e0ff6e026539adb0b84e89bfa
 r
 Bsrc/main/java/br/com/ithappens/mapper/typehandler/TipoReceita.java,7/9/794c7a153fb5ba78b854e61989b4cfa3bd57045a
+y
+Isrc/main/java/br/com/ithappens/utils/exception/ErroGenericoException.java,b/6/b657b442fd6251eb7bc08c87381c8781508813f6

@@ -2,26 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="br.com.ithappens.mapper.ItemMapper">
 
-    <!--Buscar todas as filiais: <list> -->
-    <select id="listarTodosItemsDoPedidos" resultMap="ResultPedidos">
-       SELECT * from itempedidoestoque
+    <select id="listarTodosItemsDoPedidos" resultMap="itemPedidoMap">
+    SELECT itempedidoestoque.id as item_id, quantidadepedido, valordopedido, pedidoestoque, itempedidoestoque.status as item_status,
+    produto.id as produto_id, produto.descricao, produto.valorproduto, produto.status,
+    pedidoestoque.id as pedido_id
+    FROM itempedidoestoque
+    inner join produto
+    on itempedidoestoque.produto = produto.id
+    inner join pedidoestoque
+    on itempedidoestoque.pedidoestoque = pedidoestoque.id
     </select>
-    <resultMap id="ResultPedidos" type="br.com.ithappens.model.ItemPedidoEstoque">
-        <id property="id" column="filial_id"/>
-        <result property="id" column="id"/>
-        <result property="quantidadePedido" column="quantidadePedido"/>
-        <result property="valorDoPedido" column="valorDoPedido"/>
-        <result property="status" column="status"/>
+    <resultMap id="itemPedidoMap" type="br.com.ithappens.model.ItemPedidoEstoque">
+        <result column="item_id" property="id"/>
+        <result column="quantidadepedido" property="quantidadePedido"/>
+        <result column="valordopedido" property="valorDoPedido"/>
+        <result column="item_status" property="status"/>
+        <association property="produto" resultMap="br.com.ithappens.mapper.ProdutoMapper.ResultProduto"/>
+        <association property="pedidoEstoque" javaType="br.com.ithappens.model.PedidoEstoque">
+            <id property="id" column="pedido_id"/>
+        </association>
     </resultMap>
-
-    <!--Salvar itens no Pedido -->
-    <insert id="salvaritemDoPedido" parameterType="br.com.ithappens.model.PedidoEstoque">
-        INSERT INTO pedidoEstoque (id, tipoReceita, quantidadePedidoTotal, valorPedidoTotal, status, filial, cliente, itemPedidoEstoque)
-            VALUES(#{pedidoEstoque.id}, #{pedidoEstoque.tipoReceita}, #{pedidoEstoque.quantidadePedidoTotal}, #{pedidoEstoque.valorPedidoTotal}, #{pedidoEstoque.status}, #{pedidoEstoque.filial.id}, #{pedidoEstoque.cliente.id}, #{pedidoEstoque.itemPedidoEstoque.id})
-    </insert>
 
     <!--Buscar por ID -->
     <select id="buscarItemPorId" parameterType="br.com.ithappens.model.ItemPedidoEstoque" resultType="br.com.ithappens.model.ItemPedidoEstoque">
         SELECT * from itemPedidoEstoque WHERE itemPedidoEstoque.id = #{id}
     </select>
+
+    <!--Salvar itens no Pedido -->
+    <insert id="salvaritemDoPedido" parameterType="br.com.ithappens.model.ItemPedidoEstoque">
+        INSERT INTO itempedidoestoque (id, quantidadePedido, valorDoPedido, produto, pedidoEstoque, status)
+            VALUES(#{itempedidoestoque.id}, #{itempedidoestoque.quantidadePedido}, #{itempedidoestoque.valorDoPedido}, #{itempedidoestoque.produto.id}, #{itempedidoestoque.pedidoEstoque.id}, #{itempedidoestoque.status})
+    </insert>
 </mapper>

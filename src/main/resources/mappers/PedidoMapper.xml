@@ -3,7 +3,7 @@
 
 <mapper namespace="br.com.ithappens.mapper.PedidoMapper">
 
-    <!-- Buscar todas as filiais: <list> -->
+    <!-- Buscar todas as pedidos: <list> -->
     <select id="listarTodosPedidosEstoque" resultMap="pedidoEstoqueMap">
         SELECT pedidoestoque.id as pedido_id, pedidoestoque.status as pedido_status, tipoReceita, quantidadePedidoTotal, valorPedidoTotal,
             filial.id as filial_id, filial.nome, filial.cnpj, filial.status,
@@ -25,14 +25,22 @@
     </resultMap>
 
     <!--Buscar por ID -->
-    <select id="buscarPedidosEstoquePorId" parameterType="br.com.ithappens.model.PedidoEstoque" resultType="br.com.ithappens.model.PedidoEstoque">
-        SELECT * from pedidoEstoque WHERE pedidoEstoque.id = #{id}
+    <select id="buscarPedidosEstoquePorId" resultMap="pedidoEstoqueMap" parameterType="br.com.ithappens.model.PedidoEstoque" >
+         SELECT pedidoestoque.id as pedido_id, pedidoestoque.status as pedido_status, tipoReceita, quantidadePedidoTotal, valorPedidoTotal,
+            filial.id as filial_id, filial.nome, filial.cnpj, filial.status,
+            cliente.id as cliente_id, cliente.nome, cliente.documentoDeIdentificacao, cliente.status
+        from pedidoEstoque
+        inner join filial
+        on pedidoestoque.filial = filial.id
+        inner join cliente
+        on pedidoestoque.cliente = cliente.id
+        WHERE pedidoEstoque.id = #{id}
     </select>
 
     <!--Salvar Pedido -->
     <insert id="salvarPedido" parameterType="br.com.ithappens.model.PedidoEstoque">
-        INSERT INTO pedidoEstoque (id, tipoReceita, quantidadePedidoTotal, valorPedidoTotal, status, filial, cliente, itemPedidoEstoque)
-            VALUES(#{pedidoEstoque.id}, #{pedidoEstoque.tipoReceita}, #{pedidoEstoque.quantidadePedidoTotal}, #{pedidoEstoque.valorPedidoTotal}, #{pedidoEstoque.status}, #{pedidoEstoque.filial.id}, #{pedidoEstoque.cliente.id}, #{pedidoEstoque.itemPedidoEstoque.id})
+        INSERT INTO pedidoEstoque (id, tipoReceita, quantidadePedidoTotal, valorPedidoTotal, status, filial, cliente)
+            VALUES(#{pedidoEstoque.id}, #{pedidoEstoque.tipoReceita}, #{pedidoEstoque.quantidadePedidoTotal}, #{pedidoEstoque.valorPedidoTotal}, #{pedidoEstoque.status}, #{pedidoEstoque.filial.id}, #{pedidoEstoque.cliente.id})
     </insert>
 
     <!-- Cancelar pedido -->

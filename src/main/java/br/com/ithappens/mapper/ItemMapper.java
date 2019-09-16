@@ -15,6 +15,6 @@ public interface ItemMapper {
 
   ItemPedidoEstoque buscarItemPorId(@Param("id")Long id);
 
-  boolean salvaritemDoPedido(@Param("itemPedidoEstoque") ItemPedidoEstoque itemPedidoEstoque);
+  boolean salvaritemDoPedido(@Param("itempedidoestoque") ItemPedidoEstoque itemPedidoEstoque);
 
 }
